@@ -1,7 +1,7 @@
 flatpickr("#todo-date", {
   dateFormat: "Y-m-d",
   minDate: "today",
-  disableMobile: false,
+  disableMobile: true,
   theme: "dark",
 });
 

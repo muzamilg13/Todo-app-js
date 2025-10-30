@@ -63,6 +63,13 @@ h1 {
   font-size: 0.95rem;
   width: 220px;
   transition: all 0.3s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#todo-input::placeholder,
+#todo-date::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 #todo-input:focus,
