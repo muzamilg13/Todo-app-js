@@ -1,50 +1,56 @@
-let todoList = JSON.parse(localStorage.getItem('todoList')) || []
+flatpickr("#todo-date", {
+  dateFormat: "Y-m-d",
+  minDate: "today",
+  disableMobile: false,
+  theme: "dark",
+});
 
-function saveToStorage() {
-  localStorage.setItem('todoList', JSON.stringify(todoList))
-}
+let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
+showItems();
 
 function additems() {
-  const inputElement = document.querySelector('#todo-input')
-  const dateElement = document.querySelector('#todo-date')
-  const todoInput = inputElement.value.trim()
-  const todoDate = dateElement.value
-
-  if (!todoInput) return
-
-  todoList.push({ item: todoInput, DueDate: todoDate })
-  saveToStorage()
-  inputElement.value = ''
-  dateElement.value = ''
-  showItems(true)
-  const addBtn = document.querySelector('.btn-todo')
-  addBtn.classList.add('pulse')
-  setTimeout(() => addBtn.classList.remove('pulse'), 400)
+  const inputElement = document.querySelector("#todo-input");
+  const dateElement = document.querySelector("#todo-date");
+  const todoInput = inputElement.value.trim();
+  const todoDate = dateElement.value;
+  if (!todoInput) return;
+  todoList.push({ item: todoInput, DueDate: todoDate });
+  localStorage.setItem("todoList", JSON.stringify(todoList));
+  inputElement.value = "";
+  dateElement.value = "";
+  showItems(true);
+  const addBtn = document.querySelector(".btn-todo");
+  addBtn.classList.add("pulse");
+  setTimeout(() => addBtn.classList.remove("pulse"), 400);
 }
 
-function showItems(animateNew = false) {
-  const containerElement = document.querySelector('.todo-container')
-  let newHtml = ''
-  for (let i = 0; i < todoList.length; i++) {
-    const { item, DueDate } = todoList[i]
-    newHtml += `
-      <div class="fadeStagger ${animateNew && i === todoList.length - 1 ? 'pop-glow' : ''}">
-        <span>${item}</span>
-        <span>${DueDate || ''}</span>
-        <button class="btn-delete" onclick="deleteItem(${i}, this)">DELETE</button>
-      </div>`
-  }
-  containerElement.innerHTML = newHtml
-}
-
-function deleteItem(index, btn) {
-  const item = btn.parentElement
-  item.classList.add('swipe-away')
+function deleteItem(index) {
+  const container = document.querySelector(".todo-container");
+  const itemElement = container.children[index];
+  itemElement.classList.add("swipe-away");
   setTimeout(() => {
-    todoList.splice(index, 1)
-    saveToStorage()
-    showItems()
-  }, 500)
+    todoList.splice(index, 1);
+    localStorage.setItem("todoList", JSON.stringify(todoList));
+    showItems();
+  }, 500);
 }
 
-showItems()
+function showItems(isNew = false) {
+  const containerElement = document.querySelector(".todo-container");
+  containerElement.innerHTML = "";
+  todoList.forEach((todo, index) => {
+    const itemDiv = document.createElement("div");
+    itemDiv.innerHTML = `
+      <span>${todo.item}</span>
+      <span>${todo.DueDate || ""}</span>
+      <button class='btn-delete' onclick="deleteItem(${index})">DELETE</button>
+    `;
+    if (isNew && index === todoList.length - 1) {
+      itemDiv.classList.add("pop-glow");
+    } else {
+      itemDiv.classList.add("fade-stagger");
+      itemDiv.style.animationDelay = `${index * 0.05}s`;
+    }
+    containerElement.appendChild(itemDiv);
+  });
+}

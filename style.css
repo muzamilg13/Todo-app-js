@@ -6,15 +6,15 @@
 }
 
 body {
+  background: linear-gradient(135deg, #2b0013, #44001a, #550022);
+  color: #fff;
   min-height: 100vh;
-  background: radial-gradient(circle at top left, #3b0a0a 0%, #1a0404 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 28px 16px;
-  color: #fff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  justify-content: flex-start;
+  padding: 30px 20px;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -22,8 +22,8 @@ h1 {
   margin-bottom: 18px;
   letter-spacing: 0.6px;
   background: linear-gradient(90deg, #ff3366, #ff0044);
-  background-clip: text;               
-  -webkit-background-clip: text;       
+  background-clip: text;
+  -webkit-background-clip: text;
   color: transparent;
   text-align: center;
   animation: titleGlow 2.5s ease-in-out infinite alternate;
@@ -31,190 +31,122 @@ h1 {
 
 @keyframes titleGlow {
   from {
-    text-shadow: 0 0 10px #ff0044, 0 0 20px #ff3366;
+    text-shadow: 0 0 8px rgba(255, 51, 102, 0.4);
   }
   to {
-    text-shadow: 0 0 20px #ff6699, 0 0 40px #ff0044;
+    text-shadow: 0 0 18px rgba(255, 51, 102, 0.9);
   }
 }
 
-body > div {
-  width: 100%;
-  max-width: 460px;
+.todo-input-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 18px;
-  padding: 18px;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6);
-  transform: translateY(14px);
-  opacity: 0;
-  animation: containerIn 0.8s ease-out forwards;
-}
-
-@keyframes containerIn {
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+  animation: fadeInTop 0.7s ease-out both;
 }
 
 #todo-input,
-#todo-date,
-.btn-todo {
-  display: inline-block;
-  vertical-align: middle;
-  margin: 6px 4px;
-  font-size: 0.95rem;
-  transition: transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1),
-    box-shadow 220ms ease, background 220ms ease;
-}
-
-#todo-input {
-  width: calc(60% - 12px);
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.07);
-  color: #fff;
-  outline: none;
-  backdrop-filter: blur(6px);
-}
-
 #todo-date {
-  width: calc(28% - 12px);
-  padding: 11px 12px;
-  border-radius: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.07);
-  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
   outline: none;
-  backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 0.95rem;
+  width: 220px;
+  transition: all 0.3s ease;
 }
 
 #todo-input:focus,
 #todo-date:focus {
-  transform: translateY(-3px) scale(1.02);
-  border-color: #ff3366;
-  box-shadow: 0 0 14px rgba(255, 51, 102, 0.4);
-  background: rgba(255, 255, 255, 0.12);
-}
-
-#todo-input::placeholder,
-#todo-date::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 8px rgba(255, 51, 102, 0.6);
 }
 
 .btn-todo {
-  padding: 11px 16px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
+  background: linear-gradient(90deg, #ff3366, #ff0044);
   color: #fff;
-  background: linear-gradient(45deg, #ff0044, #b0002c);
-  box-shadow: 0 6px 18px rgba(255, 0, 68, 0.3);
-  position: relative;
-  overflow: hidden;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
   transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 0, 68, 0.3);
 }
 
 .btn-todo:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 10px 26px rgba(255, 0, 68, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 0, 68, 0.5);
 }
 
-.btn-todo:active {
-  transform: scale(0.97);
+.btn-todo.pulse {
+  animation: pulseBtn 0.4s ease-out;
 }
 
-.btn-todo::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
-  opacity: 0;
-}
-
-.btn-todo:active::after {
-  width: 200%;
-  height: 200%;
-  opacity: 1;
+@keyframes pulseBtn {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(255, 0, 68, 0);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255, 0, 68, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(255, 0, 68, 0);
+  }
 }
 
 .todo-container {
-  margin-top: 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
+  width: 100%;
+  max-width: 480px;
 }
 
-.todo-container > div {
-  padding: 12px 14px;
-  border-radius: 12px;
+.todo-container div {
   display: flex;
-  gap: 12px;
-  align-items: center;
   justify-content: space-between;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.05),
-    rgba(255, 255, 255, 0.02)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  animation: fadeStagger 0.6s ease forwards;
-  transform-origin: center;
-  transition: box-shadow 0.3s ease;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 12px 14px;
+  border-radius: 10px;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 8px rgba(255, 51, 102, 0.2);
 }
 
-.todo-container > div:hover {
-  box-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
-}
-
-.todo-container > div span {
-  flex: 1;
-  color: #fff;
-  font-size: 0.95rem;
-  text-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+.todo-container div:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 0 14px rgba(255, 51, 102, 0.4);
 }
 
 .btn-delete {
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  background: linear-gradient(45deg, #ff3366, #b0002c);
+  background: rgba(255, 51, 102, 0.2);
   color: #fff;
-  box-shadow: 0 6px 16px rgba(255, 51, 102, 0.3);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
 }
 
 .btn-delete:hover {
-  transform: scale(1.08) rotate(-2deg);
-  box-shadow: 0 10px 26px rgba(255, 51, 102, 0.4);
-}
-
-.fadeStagger {
-  opacity: 0;
-  animation: fadeStagger 0.6s ease forwards;
-}
-
-@keyframes fadeStagger {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  background: rgba(255, 51, 102, 0.4);
+  box-shadow: 0 0 10px rgba(255, 51, 102, 0.6);
 }
 
 .pop-glow {
@@ -229,7 +161,7 @@ body > div {
   }
   60% {
     opacity: 1;
-    transform: translateY(-6px) scale(1.08);
+    transform: translateY(-6px) scale(1.05);
     box-shadow: 0 0 14px rgba(255, 51, 102, 0.4);
   }
   100% {
@@ -254,43 +186,106 @@ body > div {
   }
   100% {
     opacity: 0;
-    transform: translateX(-100%) rotate(-8deg);
+    transform: translateX(-100%) rotate(-10deg);
     height: 0;
     margin: 0;
     padding: 0;
   }
 }
 
-.btn-todo.pulse {
-  animation: pulseBtn 0.4s ease-out;
+.fade-stagger {
+  opacity: 0;
+  animation: fadeStagger 0.6s ease forwards;
 }
 
-@keyframes pulseBtn {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 rgba(255, 51, 102, 0);
+@keyframes fadeStagger {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
   }
-  50% {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 51, 102, 0.5);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 rgba(255, 51, 102, 0);
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
-@media (max-width: 520px) {
+@keyframes fadeInTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
   #todo-input,
-  #todo-date,
+  #todo-date {
+    width: 100%;
+  }
+
   .btn-todo {
     width: 100%;
-    display: block;
-    margin-bottom: 10px;
   }
 
-  body > div {
-    padding: 14px;
-    border-radius: 14px;
+  .todo-input-area {
+    flex-direction: column;
   }
+
+  .todo-container {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+}
+
+.flatpickr-calendar {
+  background: #330014;
+  border: 1px solid rgba(255, 51, 102, 0.3);
+  box-shadow: 0 0 12px rgba(255, 51, 102, 0.4);
+  color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.flatpickr-day {
+  color: #fff;
+  background: transparent;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.flatpickr-day:hover {
+  background: rgba(255, 51, 102, 0.2);
+  color: #fff;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: linear-gradient(90deg, #ff3366, #ff0044);
+  color: #fff;
+  box-shadow: 0 0 6px rgba(255, 0, 68, 0.5);
+}
+
+.flatpickr-current-month,
+.flatpickr-monthDropdown-months,
+.flatpickr-weekday {
+  color: #ffccd5;
+  font-weight: 500;
+}
+
+.flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-months .flatpickr-next-month svg {
+  fill: #ff668a;
+  transition: 0.2s;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+  fill: #ff0044;
 }

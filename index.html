@@ -4,16 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TODO LIST</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   </head>
+
   <body>
     <h1>TODO LIST</h1>
-    <div>
-      <input id="todo-input" type="text" placeholder="ENTER TODO" />
-      <input id="todo-date" type="date" />
+
+    <div class="todo-input-area">
+      <input id="todo-input" type="text" placeholder="Enter Todo" />
+      <input id="todo-date" type="text" placeholder="Select Date" />
       <button class="btn-todo" onclick="additems()">ADD</button>
-      <div class="todo-container"></div>
     </div>
+
+    <div class="todo-container"></div>
+
     <script src="script.js"></script>
   </body>
 </html>
